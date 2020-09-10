@@ -1,3 +1,5 @@
+官方文档：[device plugin](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
+
 device plugin demo 的功能：将 /mnt/file-devices 目录下的文件作为 "设备" 使用
 
 演示：
@@ -32,3 +34,6 @@ device plugin demo 的功能：将 /mnt/file-devices 目录下的文件作为 "�
 	/ # ls /mnt/file-devices/
 	device1  device3
 	```
+
+注意：因为只是 demo 项目，并没有实现的特别健壮，此 daemonset 在 kubelet 重启之后会失效（kubelet.sock 重建），需要重启 device plugin
+
