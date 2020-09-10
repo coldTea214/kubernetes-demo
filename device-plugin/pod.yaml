@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-pod
+spec:
+  containers:
+  - name: demo-container
+    image: alpine:3
+    command: ["sleep", "999d"]
+    resources:
+      limits:
+        coldtea214/file: 2

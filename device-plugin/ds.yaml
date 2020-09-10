@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: file-device-plugin-daemonset
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      name: file-device-plugin-ds
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        name: file-device-plugin-ds
+    spec:
+      containers:
+      - image: coldtea214/file-device-plugin:1.0
+        name: file-device-plugin
+        volumeMounts:
+        - name: device-plugin
+          mountPath: /var/lib/kubelet/device-plugins
+        - name: file-device-plugin
+          mountPath: /mnt/file-devices
+      volumes:
+      - name: device-plugin
+        hostPath:
+          path: /var/lib/kubelet/device-plugins
+      - name: file-device-plugin
+        hostPath:
+          path: /mnt/file-devices
