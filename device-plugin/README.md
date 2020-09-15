@@ -35,5 +35,4 @@ device plugin demo 的功能：将 /mnt/file-devices 目录下的文件作为 "�
 	device1  device3
 	```
 
-注意：因为只是 demo 项目，并没有实现的特别健壮，此 daemonset 在 kubelet 重启之后会失效（kubelet.sock 重建），需要重启 device plugin
 

@@ -29,11 +29,11 @@ func NewFileDevicePlugin(resourceName string, socket string) *FileDevicePlugin {
 	return &FileDevicePlugin{
 		resourceName: resourceName,
 		socket:       socket,
-		server:       grpc.NewServer([]grpc.ServerOption{}...),
 	}
 }
 
 func (m *FileDevicePlugin) Start() error {
+	m.server = grpc.NewServer([]grpc.ServerOption{}...)
 	if err := m.syncFileDevices(); err != nil {
 		log.Printf("Could not init device plugin for '%s': %s", m.resourceName, err)
 	}
@@ -50,6 +50,12 @@ func (m *FileDevicePlugin) Start() error {
 	}
 	log.Printf("Registered device plugin for '%s' with Kubelet", m.resourceName)
 
+	return nil
+}
+
+func (m *FileDevicePlugin) Stop() error {
+	m.server.Stop()
+	m.server = nil
 	return nil
 }
 

@@ -8,6 +8,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/fsnotify/fsnotify"
 	"google.golang.org/grpc"
 	pluginapi "k8s.io/kubelet/pkg/apis/deviceplugin/v1beta1"
 )
@@ -26,6 +27,22 @@ func init() {
 	if fileDeviceDir == "" {
 		fileDeviceDir = defaultFileDeviceDir
 	}
+}
+
+func newFSWatcher(files ...string) (*fsnotify.Watcher, error) {
+	watcher, err := fsnotify.NewWatcher()
+	if err != nil {
+		return nil, err
+	}
+
+	for _, f := range files {
+		err = watcher.Add(f)
+		if err != nil {
+			watcher.Close()
+			return nil, err
+		}
+	}
+	return watcher, nil
 }
 
 func (m *FileDevicePlugin) syncFileDevices() error {
