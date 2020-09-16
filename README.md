@@ -3,3 +3,4 @@
 * [device plugin](device-plugin/)
 * [webhook](webhook/)
 * [custom controller](custom-controller/)
+* [scheduler extender](scheduler-extender/)
