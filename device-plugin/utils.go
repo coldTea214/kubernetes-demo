@@ -5,7 +5,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net"
-	"os"
 	"time"
 
 	"github.com/fsnotify/fsnotify"
@@ -14,20 +13,12 @@ import (
 )
 
 var (
-	fileDeviceDir string
+	fileDeviceDir = "/mnt/file-devices"
 )
 
 const (
-	defaultFileDeviceDir = "/mnt/file-devices"
 	syncFileDevicePeriod = time.Minute
 )
-
-func init() {
-	fileDeviceDir = os.Getenv("FILE_DEVICE_DIR")
-	if fileDeviceDir == "" {
-		fileDeviceDir = defaultFileDeviceDir
-	}
-}
 
 func newFSWatcher(files ...string) (*fsnotify.Watcher, error) {
 	watcher, err := fsnotify.NewWatcher()
