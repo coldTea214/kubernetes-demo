@@ -1,0 +1,1 @@
+kubectl 的扩展主要指的是 kubectl plugin，这个比较简单，只要二进制形如 kubectl-xxx，并且放到 $PATH 类似路径下可被识别即可
